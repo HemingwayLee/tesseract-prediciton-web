@@ -5,7 +5,6 @@ from PIL import Image
 from flask import Flask
 import pytesseract
 
-print(pytesseract.image_to_string(Image.open('images/jp.png'), lang="jpn"))
 
 app = Flask(__name__)
 
@@ -18,7 +17,7 @@ def run_image_byte():
     image_bytes = request.data
     image_data = BytesIO(image_bytes)
     image = Image.open(image_data)
-    res = pytesseract.image_to_string(image, lang="jpn")
+    res = pytesseract.image_to_string(image, lang="jpn").strip()
 
     return json.dumps({"predictions": res})
 
